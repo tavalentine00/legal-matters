@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
+import { CreateMatterForm } from '../components/CreateMatterForm'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -17,7 +18,7 @@ function Home() {
           {matters === undefined ? '...' : `${matters.length} matter(s)`}
         </span>
       </div>
-
+      <CreateMatterForm />
       {matters === undefined ? (
         <p className="text-gray-500">Loading...</p>
       ) : matters.length === 0 ? (
