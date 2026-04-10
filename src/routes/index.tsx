@@ -18,17 +18,20 @@ function Home() {
           {matters === undefined ? '...' : `${matters.length} matter(s)`}
         </span>
       </div>
+
       <CreateMatterForm />
+
       {matters === undefined ? (
         <p className="text-gray-500">Loading...</p>
       ) : matters.length === 0 ? (
         <p className="text-gray-500">No matters yet.</p>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-6">
           {matters.map((matter) => (
-            <div
-              key={matter._id}
-              className="border border-gray-200 rounded-xl p-5"
+            
+              <a key={matter._id}
+              href={`/matters/${matter._id}`}
+              className="border border-gray-200 rounded-xl p-5 block hover:border-gray-400 transition-colors no-underline text-inherit"
             >
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">{matter.name}</h2>
@@ -44,7 +47,7 @@ function Home() {
                   {matter.description}
                 </p>
               )}
-            </div>
+            </a>
           ))}
         </div>
       )}
