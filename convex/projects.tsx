@@ -26,3 +26,10 @@ export const create = mutation({
     return projectId
   },
 })
+
+export const get = query({
+    args: { projectId: v.id('projects')}, 
+    handler: async (ctx, args) => {
+        return await ctx.db.get(args.projectId);
+    }
+})

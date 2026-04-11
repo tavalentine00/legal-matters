@@ -4,6 +4,7 @@ import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
 import { CreateProjectForm } from '../components/CreateProjectform'
 
+
 export const Route = createFileRoute('/matters/$matterId')({
   component: MatterDetail,
 })
@@ -46,7 +47,7 @@ function MatterDetail() {
           ) : (
             <div className="flex flex-col gap-4">
               {projects.map((project) => (
-                <div key={project._id}>{project.name}</div>
+                <a key={project._id} href={`/projects/${project._id}`} className="border border-gray-200 rounded-xl p-5 block hover:border-gray-400 transition-colors no-underline text-inherit">{project.name}</a>
               ))}
             </div>
           )}
