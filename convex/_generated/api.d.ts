@@ -10,6 +10,7 @@
 
 import type * as matters from "../matters.js";
 import type * as projects from "../projects.js";
+import type * as tasks from "../tasks.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +21,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   matters: typeof matters;
   projects: typeof projects;
+  tasks: typeof tasks;
 }>;
 
 /**
