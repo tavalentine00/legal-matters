@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useQuery } from 'convex/react'
+import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
 import { CreateTaskForm } from '../components/CreateTaskForm'
@@ -10,6 +10,7 @@ export const Route = createFileRoute('/projects/$projectId')({
 
 function ProjectDetail() {
   const { projectId } = Route.useParams()
+  const updateTask = useMutation(api.tasks.update)
   const project = useQuery(api.projects.get, {
     projectId: projectId as Id<'projects'>
   })
@@ -25,6 +26,18 @@ function ProjectDetail() {
     return <main className="p-8">Project not found.</main>
   }
 
+  async function handleStatusChange(taskId: Id<'tasks'>, currentStatus: 'todo' | 'in_progress' | 'done') {
+    const nextStatus = {
+      todo: 'in_progress',
+      in_progress: 'done',
+      done: 'todo',
+    } as const
+  
+    await updateTask({
+      taskId,
+      status: nextStatus[currentStatus],
+    })
+  }
   return (
     <main className="p-8 max-w-4xl mx-auto">
       <div className="mb-8">
@@ -47,7 +60,8 @@ function ProjectDetail() {
             {tasks.map((task) => (
               <div
                 key={task._id}
-                className="border border-gray-200 rounded-xl p-4"
+                className="border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-gray-400 transition-colors"
+                onClick={() => handleStatusChange(task._id, task.status)}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{task.title}</span>
