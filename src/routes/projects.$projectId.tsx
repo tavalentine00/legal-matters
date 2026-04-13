@@ -77,6 +77,7 @@ function ProjectDetail() {
                 {task.description && (
                   <p className="text-sm text-gray-500 mt-1">{task.description}</p>
                 )}
+                <a href={`/tasks/${task._id}`} onClick={(e) => e.stopPropagation()} className="text-sm text-gray-500 mt-1">View Task</a>
               </div>
             ))}
           </div>
