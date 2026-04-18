@@ -42,3 +42,10 @@ export const getDownloadUrl = query({
         return await ctx.storage.getUrl(args.storageId)
     }
 })
+
+export const updateSummary = mutation({
+    args: { documentId: v.id('documents'), summary: v.string() },
+    handler: async (ctx, args) => {
+        await ctx.db.patch(args.documentId, { summary: args.summary})
+    }
+})

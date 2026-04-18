@@ -47,5 +47,6 @@ export default defineSchema({
     storageId: v.string(),
     mimeType: v.string(),
     sizeBytes: v.number(),
+    summary: v.optional(v.string()),
   }),
 })
