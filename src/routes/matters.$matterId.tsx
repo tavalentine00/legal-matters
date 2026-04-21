@@ -3,6 +3,7 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
 import { CreateProjectForm } from '../components/CreateProjectform'
+import { MatterChat } from '#/components/MatterChat'
 
 
 export const Route = createFileRoute('/matters/$matterId')({
@@ -51,6 +52,10 @@ function MatterDetail() {
               ))}
             </div>
           )}
+        </section>
+        <section>
+        <h2 className="text-lg font-semibold mb-3">AI Assistant</h2>
+        <MatterChat matterId={matter._id} />
         </section>
       </div>
     </main>
