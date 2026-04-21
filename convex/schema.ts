@@ -49,4 +49,10 @@ export default defineSchema({
     sizeBytes: v.number(),
     summary: v.optional(v.string()),
   }),
+
+  messages: defineTable({
+    matterId: v.id('matters'),
+    role: v.union(v.literal('user'), v.literal('assistant')),
+    content: v.string(),
+  }),
 })

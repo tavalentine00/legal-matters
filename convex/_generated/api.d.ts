@@ -9,6 +9,7 @@
  */
 
 import type * as actions from "../actions.js";
+import type * as chat from "../chat.js";
 import type * as documents from "../documents.js";
 import type * as matters from "../matters.js";
 import type * as projects from "../projects.js";
@@ -22,6 +23,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   actions: typeof actions;
+  chat: typeof chat;
   documents: typeof documents;
   matters: typeof matters;
   projects: typeof projects;
