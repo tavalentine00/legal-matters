@@ -1,9 +1,21 @@
 import Groq from 'groq-sdk'
-import { api } from './_generated/api'
-import { action } from './_generated/server'
+import { api, internal } from './_generated/api'
+import { action, internalAction } from './_generated/server'
 import { v } from 'convex/values'
+import { retrier } from './retrier'
 
 export const summarizeDocument = action({
+  args: { documentId: v.id('documents') },
+  returns: v.string(),
+  handler: async (ctx, args): Promise<string> => {
+    await retrier.run(ctx, internal.actions.summarizeDocumentInternal, {
+      documentId: args.documentId,
+    })
+    return 'Summarization started'
+  },
+})
+
+export const summarizeDocumentInternal = internalAction({
   args: { documentId: v.id('documents') },
   returns: v.string(),
   handler: async (ctx, args): Promise<string> => {
@@ -50,6 +62,21 @@ export const summarizeDocument = action({
 })
 
 export const chat = action({
+  args: {
+    matterId: v.id('matters'),
+    message: v.string(),
+  },
+  returns: v.string(),
+  handler: async (ctx, args): Promise<string> => {
+    await retrier.run(ctx, internal.actions.chatInternal, {
+      matterId: args.matterId,
+      message: args.message,
+    })
+    return 'Message sent'
+  },
+})
+
+export const chatInternal = internalAction({
   args: {
     matterId: v.id('matters'),
     message: v.string(),
